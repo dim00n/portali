@@ -18,12 +18,13 @@ Public Class MyApplication
     End Property
 
     <Required()>
-    <DisplayName("Type")>
+    <Display(Name:="Type", Prompt:="Application Type")>
     Public Property AppTypeId As Integer
 
     Private _Name As String
     <Required(ErrorMessage:="Application Name is required.")>
     <StringLength(60)>
+    <Display(Name:="Name", Prompt:="Application Name")>
     Public Property Name() As String
         Get
             Return _Name

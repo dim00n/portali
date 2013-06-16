@@ -1,5 +1,7 @@
-﻿@Using Html.BeginForm()
+﻿@Using Html.Bootstrap().Begin(New Form())
     @<input type="hidden" name="id" value="@ViewData("id")" />
-    @<button type="submit" value="Delete" class="btn btn-small btn-danger">Delete</button> @<span>|</span>
-    @Html.ActionLink("Back to List", "Index", Nothing, New With {.class = "btn btn-small btn-primary"})
+@Using Html.Bootstrap().Begin(New FormActions())
+    @Html.Bootstrap().SubmitButton().Value("Delete").Text("Delete").Style(ButtonStyle.Danger).Size(ButtonSize.Small) @<span>|</span>
+    @Html.Bootstrap().ActionLinkButton("Back to List", "Index").Style(ButtonStyle.Primary).Size(ButtonSize.Small)
+End Using
 End Using

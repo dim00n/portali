@@ -1,4 +1,4 @@
-﻿@Using Html.BeginForm()
-    @<button type="submit" value="Save" class="btn btn-small btn-success">Save</button> @<span>|</span>
-    @Html.ActionLink("Back to List", "Index", Nothing, New With {.class = "btn btn-small btn-primary"})
+﻿@Using Html.Bootstrap().Begin(New FormActions())
+    @Html.Bootstrap().SubmitButton().Name("Save").Style(ButtonStyle.Success).Size(ButtonSize.Small) @<span>|</span>
+    @Html.Bootstrap().ActionLinkButton("Back to List", "Index").Style(ButtonStyle.Primary).Size(ButtonSize.Small)
 End Using

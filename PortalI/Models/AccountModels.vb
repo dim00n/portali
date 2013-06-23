@@ -18,12 +18,15 @@ Imports System.Data.Entity
 Public Class UserProfile
     <Key()> _
     <DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)> _
+    <ScaffoldColumn(False)>
     Public Property UserId As Integer
 
     <StringLength(64, MinimumLength:=6)>
+    <DisplayName("User name")>
     Public Property UserName As String
 
     <StringLength(64, MinimumLength:=6)>
+    <DisplayName("Main role")>
     Public Property MainRole As String
 End Class
 

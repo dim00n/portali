@@ -10,6 +10,7 @@ Public Class BundleConfig
                    "~/Scripts/jquery-ui-{version}.js",
                    "~/Scripts/jquery.unobtrusive*",
                     "~/Scripts/jquery.validate*",
+                    "~/Scripts/bootstrap.js",
                     "~/Scripts/portali.js"
                    ))
 

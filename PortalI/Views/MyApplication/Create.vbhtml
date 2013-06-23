@@ -6,16 +6,16 @@ End Code
 
 <h3>@ViewData("Title")</h3>
 
-@Using Html.BeginForm("Create", "MyApplication", FormMethod.Post, New With {.class = "form-horizontal"})
+@Using Html.Bootstrap.Begin(New Form("Create", "MyApplication").FormMethod(FormMethod.Post).Type(FormType.Horizontal))
     @Html.ValidationSummary(True)
     @Html.AntiForgeryToken()
 
      @<fieldset>
         <legend>MyApplication</legend>
-        @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.Name).Placeholder()
-        @Html.Bootstrap().ControlGroup().DropDownListFor(Function(model) model.AppTypeId, ViewData("AppTypeId")).OptionLabel("-- Select Type --")
-        @Html.Bootstrap().ControlGroup().TextAreaFor(Function(model) model.Description)
-        @Html.Bootstrap().ControlGroup().CheckBoxFor(Function(model) model.Implemented)
+            @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.Name).Placeholder()
+            @Html.Bootstrap().ControlGroup().DropDownListFor(Function(model) model.AppTypeId, ViewData("AppTypeId")).OptionLabel("-- Select Type --")
+            @Html.Bootstrap().ControlGroup().TextAreaFor(Function(model) model.Description)
+            @Html.Bootstrap().ControlGroup().CheckBoxFor(Function(model) model.Implemented)
         <div>
             @Html.Partial("Elements/_Create_BackToList")
         </div>

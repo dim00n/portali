@@ -25,6 +25,7 @@
     End Function
 
     <ChildActionOnly()>
+    <OutputCache(Duration:=10)>
     Public Function AppMenu() As ActionResult
         Dim apps = _db.Query(Of MyApplication).Where(Function(x) x.Implemented = True).ToList().OrderBy(Function(x) x.Name)
 

@@ -75,11 +75,13 @@
     <Reference Include="NotFoundMvc">
       <HintPath>..\packages\NotFoundMvc.1.2.0\lib\net40\NotFoundMvc.dll</HintPath>
     </Reference>
-    <Reference Include="PagedList">
-      <HintPath>..\packages\PagedList.1.15.0.0\lib\net40\PagedList.dll</HintPath>
+    <Reference Include="PagedList, Version=1.16.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PagedList.1.16.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
-    <Reference Include="PagedList.Mvc">
-      <HintPath>..\packages\PagedList.Mvc.4.2.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    <Reference Include="PagedList.Mvc, Version=4.3.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PagedList.Mvc.4.3.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -91,6 +93,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -130,10 +136,6 @@
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
@@ -156,8 +158,9 @@
     <Reference Include="T4MVCExtensions">
       <HintPath>..\packages\T4MVCExtensions.3.6.5\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="TwitterBootstrapMVC">
-      <HintPath>..\packages\TwitterBootstrapMVC.2.1.6\lib\net40\TwitterBootstrapMVC.dll</HintPath>
+    <Reference Include="TwitterBootstrapMVC, Version=2.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TwitterBootstrapMVC.2.1.9\lib\net40\TwitterBootstrapMVC.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -214,7 +217,10 @@
     <Compile Include="App_Start\FilterConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="App_Start\WebApiConfig.vb" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.vb" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.vb" />
     <Compile Include="Controllers\AssigningBodyController.vb" />
+    <Compile Include="Controllers\INISRecordController.vb" />
     <Compile Include="Controllers\LanguageController.vb" />
     <Compile Include="Controllers\MyApplicationController.vb" />
     <Compile Include="Global.asax.vb">
@@ -228,9 +234,18 @@
       <DependentUpon>201306142132344_Migration.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201306142132344_Migration.vb" />
+    <Compile Include="Migrations\201306161627188_Migration1.Designer.vb">
+      <DependentUpon>201306161627188_Migration1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201306161627188_Migration1.vb" />
+    <Compile Include="Migrations\201306161644561_Migration2.Designer.vb">
+      <DependentUpon>201306161644561_Migration2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201306161644561_Migration2.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\ApplicationType.vb" />
     <Compile Include="Models\AssigningBody.vb" />
+    <Compile Include="Models\INISRecord.vb" />
     <Compile Include="Models\Language.vb" />
     <Compile Include="Models\MyApplication.vb" />
     <Compile Include="Models\PortalIDb.vb" />
@@ -260,6 +275,12 @@
     <EmbeddedResource Include="Migrations\201306142132344_Migration.resx">
       <DependentUpon>201306142132344_Migration.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306161627188_Migration1.resx">
+      <DependentUpon>201306161627188_Migration1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306161644561_Migration2.resx">
+      <DependentUpon>201306161644561_Migration2.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -268,6 +289,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Users\Index.vbhtml" />
+    <Content Include="Areas\Admin\Views\Users\Details.vbhtml" />
+    <Content Include="Areas\Admin\Views\Users\Create.vbhtml" />
+    <Content Include="Areas\Admin\Views\Users\Edit.vbhtml" />
+    <Content Include="Areas\Admin\Views\Users\Delete.vbhtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.vbhtml" />
+    <Content Include="Areas\Admin\Views\Users\_Users.vbhtml" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -394,6 +423,8 @@
     <Content Include="Views\MyApplication\_Applications.vbhtml" />
     <Content Include="Views\Shared\Elements\_Search.vbhtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\INISRecord\Index.vbhtml" />
+    <Content Include="Views\INISRecord\_INISRecords.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -446,6 +477,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <PropertyGroup>

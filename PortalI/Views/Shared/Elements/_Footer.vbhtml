@@ -6,11 +6,14 @@
                 </p>
             </div>
             <div class="float-right">
-                @If (User.IsInRole("Admin")) Then
-                    @Html.ActionLink("Error Log", "Index", "Elmah", Nothing, New With {.target = "_blank"}) @<text>|</text>
+                @If (User.IsInRole("Admin") AndAlso Not Request.RawUrl.StartsWith("/Elmah")) Then
+                    @Html.ActionLink("Error Log", "Index", "Elmah", New With {.area = ""}, New With {.target = "_blank"}) @<text>|</text>
                 End If
-                @Html.ActionLink("About", "About", "Home") |
-                @Html.ActionLink("Contact", "Contact", "Home")
+                @If (User.IsInRole("Admin") AndAlso Not Request.RawUrl.StartsWith("/Admin")) Then
+                    @Html.ActionLink("Admin", "Index", "Admin/Users") @<text>|</text>
+                End If
+                @Html.ActionLink("About", "About", New With {.area = "", .controller = "Home"}) |
+                @Html.ActionLink("Contact", "Contact", New With {.area = "", .controller="Home"})
             </div>
         </div>
 <!-- END FOOTER -->

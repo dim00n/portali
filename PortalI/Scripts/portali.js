@@ -14,7 +14,7 @@ $(function () {
             var $target = $($form.attr("data-otf-target"));
             var $newHtml = $(data);
             $target.replaceWith($newHtml);
-//            $newHtml.effect("highlight");
+            //            $newHtml.effect("highlight");
         });
 
         return false;
@@ -64,5 +64,8 @@ $(function () {
 
     $(".main-content").on("click", ".pagedList a", getPage);
 
-
+//    $(".my-delete-button")
+//        .click(function () {
+//            $("div.modal-body").effect("highlight");
+//        });
 });

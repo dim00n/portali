@@ -18,11 +18,10 @@
                 Html.RenderAction("AppMenu", "Home")
             End Code
         </section>
-        <section class="main-content">
+        <section>
             @RenderBody()
         </section>
     </div>
-
     @Html.Partial("Elements/_Footer")
 
     @Scripts.Render("~/bundles/portali")

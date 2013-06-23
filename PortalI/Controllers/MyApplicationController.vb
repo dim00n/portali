@@ -76,13 +76,16 @@ Namespace PortalI
         <HttpPost()>
         <ValidateAntiForgeryToken()>
         Function Create(ByVal myapplication As MyApplication) As ActionResult
+            If (_db.Query(Of MyApplication).Where(Function(x) x.Name = myapplication.Name).Count > 0) Then
+                ModelState.AddModelError("Name", "Application Name must be unique!")
+            End If
             If ModelState.IsValid Then
                 _db.Add(myapplication)
                 SaveChanges()
                 Return RedirectToAction("Index", New With {.appTypeId = myapplication.AppTypeId})
             End If
 
-            ViewBag.AppTypeId = New SelectList(_db.Query(Of ApplicationType), "AppTypeId", "AppType", myapplication.AppType.AppTypeId)
+            ViewBag.AppTypeId = New SelectList(_db.Query(Of ApplicationType), "AppTypeId", "AppType")
             Return View(myapplication)
         End Function
 

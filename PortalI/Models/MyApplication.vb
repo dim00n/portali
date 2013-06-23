@@ -17,7 +17,7 @@ Public Class MyApplication
         End Set
     End Property
 
-    <Required()>
+    <Required(ErrorMessage:="Application Type is required.")>
     <Display(Name:="Type", Prompt:="Application Type")>
     Public Property AppTypeId As Integer
 

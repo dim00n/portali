@@ -6,43 +6,20 @@ End Code
 
 <h3>@ViewData("Title")</h3>
 
-@Using Html.BeginForm()
+@Using Html.Bootstrap.Begin(New Form("Edit", "Country").FormMethod(FormMethod.Post).Type(FormType.Horizontal))
     @Html.ValidationSummary(True)
     @Html.AntiForgeryToken()
 
     @<fieldset>
-        <legend>Country</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(Function(model) model.AssigningBodyCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(Function(model) model.AssigningBodyCode)
-            @Html.ValidationMessageFor(Function(model) model.AssigningBodyCode)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(Function(model) model.AssigningBodyName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(Function(model) model.AssigningBodyName)
-            @Html.ValidationMessageFor(Function(model) model.AssigningBodyName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(Function(model) model.AssigningBodyAdjective)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(Function(model) model.AssigningBodyAdjective)
-            @Html.ValidationMessageFor(Function(model) model.AssigningBodyAdjective)
-        </div>
-
+        <legend>Language</legend>
+        @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.AssigningBodyCode)
+        @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.AssigningBodyName)
+        @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.AssigningBodyAdjective)
         <div>
             @Html.Partial("Elements/_Save_BackToList", ViewData)
         </div>
-     </fieldset>
+    </fieldset>
 End Using
-
 
 @Section Scripts
 End Section

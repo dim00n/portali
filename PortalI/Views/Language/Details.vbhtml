@@ -7,31 +7,14 @@ End Code
 
 <h3>@ViewData("Title")</h3>
 
-<fieldset>
-    <legend>Language</legend>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(Function(model) model.LCode)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(Function(model) model.LCode)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(Function(model) model.LNameEnglish)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(Function(model) model.LNameEnglish)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(Function(model) model.LNameOriginal)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(Function(model) model.LNameOriginal)
-    </div>
-</fieldset>
-
-<div>
-    @Html.Partial("Elements/_Edit_BackToList", ViewData)
-</div>
+@Using Html.Bootstrap.Begin(New Form("Details", "Language").FormMethod(FormMethod.Post).Type(FormType.Horizontal))
+    @<fieldset>
+        <legend>Language</legend>
+            @Html.Bootstrap().ControlGroup().DisplayTextFor(Function(m) Model.LCode)
+            @Html.Bootstrap().ControlGroup().DisplayTextFor(Function(m) Model.LNameEnglish)
+            @Html.Bootstrap().ControlGroup().DisplayTextFor(Function(m) Model.LNameOriginal)
+        <div>
+            @Html.Partial("Elements/_Edit_BackToList", ViewData)
+        </div>
+    </fieldset>
+End Using

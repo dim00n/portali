@@ -11,4 +11,12 @@ End Code
 
 @Html.Partial("_Applications", Model)
 
+@Code
+    ViewData("modalDialogAction") = "Delete"
+    ViewData("modalDialogHeader") = "Delete Application"
+    ViewData("modalDialogMsgTemplate") = "_DeleteWarningMsg"
+End Code
+@Html.Partial("Elements/_DeleteWarningModal")
+
+
 

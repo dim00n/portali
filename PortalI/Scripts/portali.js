@@ -1,6 +1,16 @@
 ﻿
 $(function () {
 
+    var getDeleteWarning = function () {
+        var template = $('#my-delete-warning-template').clone().html();
+        var html = template
+                    .replace('{{AppName}}', $(this).closest('tr').children('td[data-my-appname]').attr("data-my-appname"))
+                    .replace('{{AppType}}', $(this).closest('tr').children('td[data-my-apptype]').attr("data-my-apptype"));
+        //                    .replace('{{AppId}}', $(this).closest('tr').attr("data-my-appid"));
+        $('div.modal-body p:first').replaceWith(html);
+        $('div.modal-footer input[name="id"]').attr('value', $(this).closest('tr').attr("data-my-appid"));
+    };
+
     var ajaxFormSubmit = function () {
         var $form = $(this);
 
@@ -11,12 +21,10 @@ $(function () {
         };
 
         $.ajax(options).done(function (data) {
-            var $target = $($form.attr("data-otf-target"));
+            var $target = $($form.attr("data-my-target"));
             var $newHtml = $(data);
             $target.replaceWith($newHtml);
-            //            $newHtml.effect("highlight");
         });
-
         return false;
     };
 
@@ -33,7 +41,7 @@ $(function () {
         var $input = $(this);
 
         var options = {
-            source: $input.attr("data-otf-autocomplete"),
+            source: $input.attr("data-my-autocomplete"),
             select: submitAutocompleteForm
         };
 
@@ -50,22 +58,24 @@ $(function () {
         };
 
         $.ajax(options).done(function (data) {
-            var $target = $($a.parents("div.pagedList").attr("data-otf-target"));
+            var $target = $($a.parents("div.pagedList").attr("data-my-target"));
             $target.replaceWith(data);
         });
 
         return false;
     };
 
+    /* -- remove validation error and highlighting when user starts typing in that input --  */
+    $(document).on('keypress change', '.input-validation-error', function () {
+        var name = $(this).attr('name');
+        $(this).removeClass('input-validation-error').siblings('span.help-inline').find('.field-validation-error[data-valmsg-for="' + name + '"]').remove();
+        $(this).closest('.control-group').removeClass('error');
+    });
 
+    $("form[data-my-ajax='true']").submit(ajaxFormSubmit);
+    $("input[data-my-autocomplete]").each(createAutocomplete);
 
-    $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
-    $("input[data-otf-autocomplete]").each(createAutocomplete);
+    $(".pagedList a").on("click", getPage);
 
-    $(".main-content").on("click", ".pagedList a", getPage);
-
-//    $(".my-delete-button")
-//        .click(function () {
-//            $("div.modal-body").effect("highlight");
-//        });
+    $(".my-delete-button").on("click", getDeleteWarning);
 });

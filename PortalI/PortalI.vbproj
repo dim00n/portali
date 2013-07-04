@@ -39,6 +39,9 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetOpenAuth.AspNet, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DotNetOpenAuth.AspNet.4.3.0.13117\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
@@ -66,8 +69,12 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah.Mvc">
-      <HintPath>..\packages\Elmah.MVC.2.0.2\lib\net40\Elmah.Mvc.dll</HintPath>
+    <Reference Include="Elmah.Mvc, Version=2.0.0.37572, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Elmah.MVC.2.1.0\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.30506.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -160,27 +167,19 @@
     </Reference>
     <Reference Include="TwitterBootstrapMVC, Version=2.1.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TwitterBootstrapMVC.2.1.9\lib\net40\TwitterBootstrapMVC.dll</HintPath>
+      <HintPath>..\packages\TwitterBootstrapMVC.2.3.2\lib\net40\TwitterBootstrapMVC.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
-    </Reference>
     <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
-    </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +241,10 @@
       <DependentUpon>201306161644561_Migration2.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201306161644561_Migration2.vb" />
+    <Compile Include="Migrations\201306291312017_Migration3.Designer.vb">
+      <DependentUpon>201306291312017_Migration3.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201306291312017_Migration3.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\ApplicationType.vb" />
     <Compile Include="Models\AssigningBody.vb" />
@@ -280,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306161644561_Migration2.resx">
       <DependentUpon>201306161644561_Migration2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306291312017_Migration3.resx">
+      <DependentUpon>201306291312017_Migration3.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -398,12 +404,10 @@
     <Content Include="Views\Language\Details.vbhtml" />
     <Content Include="Views\Language\Create.vbhtml" />
     <Content Include="Views\Language\Edit.vbhtml" />
-    <Content Include="Views\Language\Delete.vbhtml" />
     <Content Include="Views\AssigningBody\Index.vbhtml" />
     <Content Include="Views\AssigningBody\Details.vbhtml" />
     <Content Include="Views\AssigningBody\Create.vbhtml" />
     <Content Include="Views\AssigningBody\Edit.vbhtml" />
-    <Content Include="Views\AssigningBody\Delete.vbhtml" />
     <Content Include="Views\Language\_Languages.vbhtml" />
     <None Include="Scripts\jquery-2.0.2.min.map" />
     <Content Include="Views\AssigningBody\_AssigningBodies.vbhtml" />
@@ -419,12 +423,14 @@
     <Content Include="Views\MyApplication\Index.vbhtml" />
     <Content Include="Views\MyApplication\Details.vbhtml" />
     <Content Include="Views\MyApplication\Edit.vbhtml" />
-    <Content Include="Views\MyApplication\Delete.vbhtml" />
     <Content Include="Views\MyApplication\_Applications.vbhtml" />
     <Content Include="Views\Shared\Elements\_Search.vbhtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\INISRecord\Index.vbhtml" />
     <Content Include="Views\INISRecord\_INISRecords.vbhtml" />
+    <Content Include="Views\Shared\Elements\_DeleteWarningModal.vbhtml" />
+    <Content Include="Views\Shared\Templates\_DeleteWarningMsg.vbhtml" />
+    <Content Include="Views\Shared\Elements\_Details_Delete.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

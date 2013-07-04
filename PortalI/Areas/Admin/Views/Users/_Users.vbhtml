@@ -1,7 +1,7 @@
 ﻿@ModelType IPagedList(Of PortalI.UserProfile)
 
 <div id="targetList">
-    <div class="pagedList" data-otf-target="#targetList">
+    <div class="pagedList" data-my-target="#targetList">
         @Html.PagedListPager(Model, Function(x) Url.Action("Index", New With {.page = x}), PagedListRenderOptions.ClassicPlusFirstAndLast)
     </div>
     <table class="table table-striped table-bordered table-condensed">

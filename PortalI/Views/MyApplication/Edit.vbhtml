@@ -12,12 +12,12 @@ End Code
 
      @<fieldset>
         <legend>MyApplication</legend>
-            @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.Name)
-            @Html.Bootstrap().ControlGroup().DropDownListFor(Function(model) model.AppTypeId, ViewData("AppTypeId"))
-            @Html.Bootstrap().ControlGroup().TextAreaFor(Function(model) model.Description)
-            @Html.Bootstrap().ControlGroup().CheckBoxFor(Function(model) model.Implemented)
-            @Html.HiddenFor(Function(model) model.MyApplicationID)
-       <div>
+        @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.Name)
+        @Html.Bootstrap().ControlGroup().DropDownListFor(Function(model) model.AppTypeId, ViewBag.AppTypeIds)
+        @Html.Bootstrap().ControlGroup().TextAreaFor(Function(model) model.Description)
+        @Html.Bootstrap().ControlGroup().CheckBoxFor(Function(model) model.Implemented)
+        @Html.HiddenFor(Function(model) model.MyApplicationID)
+        <div>
             @Html.Partial("Elements/_Save_BackToList", ViewData)
         </div>
     </fieldset>

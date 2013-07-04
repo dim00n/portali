@@ -22,6 +22,7 @@ Namespace PortalI
 
             Dim model = _db.Query(Of MyApplication) _
                             .Where(Function(x) x.Name.StartsWith(term)) _
+                            .OrderBy(Function(x) x.Name) _
                             .Take(10) _
                             .Select(Function(x) New With {
                                         .label = x.Name
@@ -33,10 +34,12 @@ Namespace PortalI
         '
         ' GET: /MyApplication/
         <AllowAnonymous()>
+        <OutputCache(Duration:=3, VaryByHeader:="X-Requested-With", Location:=OutputCacheLocation.Server)>
         Function Index(Optional searchTerm As String = Nothing,
                        Optional page As Integer = 1,
                        Optional appTypeId As Integer = 0) As ActionResult
 
+            ViewBag.SearchTerm = searchTerm
             Dim model = _db.Query(Of MyApplication).Include(Function(x) x.AppType) _
                     .OrderBy(Function(x) x.MyApplicationID) _
                     .Where(Function(x) searchTerm Is Nothing OrElse x.Name.StartsWith(searchTerm)) _
@@ -66,7 +69,7 @@ Namespace PortalI
         ' GET: /MyApplication/Create
 
         Function Create() As ActionResult
-            ViewBag.AppTypeId = New SelectList(_db.Query(Of ApplicationType), "AppTypeId", "AppType")
+            GetAppTypes()
             Return View()
         End Function
 
@@ -85,7 +88,7 @@ Namespace PortalI
                 Return RedirectToAction("Index", New With {.appTypeId = myapplication.AppTypeId})
             End If
 
-            ViewBag.AppTypeId = New SelectList(_db.Query(Of ApplicationType), "AppTypeId", "AppType")
+            GetAppTypes()
             Return View(myapplication)
         End Function
 
@@ -97,7 +100,8 @@ Namespace PortalI
             If IsNothing(myapplication) Then
                 Return HttpNotFound()
             End If
-            ViewBag.AppTypeId = New SelectList(_db.Query(Of ApplicationType), "AppTypeId", "AppType", myapplication.AppType.AppTypeId)
+            ViewBag.AppTypeIds = New SelectList(_db.Query(Of ApplicationType), "AppTypeId", "AppType", myapplication.AppTypeId)
+            'GetAppTypes(myapplication.AppTypeId)
             Return View(myapplication)
         End Function
 
@@ -107,28 +111,31 @@ Namespace PortalI
         <HttpPost()>
         <ValidateAntiForgeryToken()>
         Function Edit(ByVal myapplication As MyApplication) As ActionResult
+            If (_db.Query(Of MyApplication).Where(Function(x) x.Name = myapplication.Name And x.MyApplicationID <> myapplication.MyApplicationID).Count > 0) Then
+                ModelState.AddModelError("Name", "Application Name must be unique!")
+            End If
             If ModelState.IsValid Then
                 _db.Update(myapplication)
                 SaveChanges()
                 Return RedirectToAction("Index", New With {.appTypeId = myapplication.AppTypeId})
             End If
 
-            ViewBag.AppTypeId = New SelectList(_db.Query(Of ApplicationType), "AppTypeId", "AppType", myapplication.AppType.AppTypeId)
+            GetAppTypes(myapplication.AppTypeId)
             Return View(myapplication)
         End Function
 
         '
         ' GET: /MyApplication/Delete/5
 
-        Function Delete(Optional ByVal id As Integer = Nothing) As ActionResult
-            Dim myapplication As MyApplication = _db.Find(Of MyApplication)(id)
-            If IsNothing(myapplication) Then
-                Return HttpNotFound()
-            End If
-            TempData("Message") = "Do you really want to delete application: '" & myapplication.Name & "'?"
-            TempData("Style") = "alert alert-error"
-            Return View(myapplication)
-        End Function
+        'Function Delete(Optional ByVal id As Integer = Nothing) As ActionResult
+        '    Dim myapplication As MyApplication = _db.Find(Of MyApplication)(id)
+        '    If IsNothing(myapplication) Then
+        '        Return HttpNotFound()
+        '    End If
+        '    TempData("Message") = "Do you really want to delete application: '" & myapplication.Name & "'?"
+        '    TempData("Style") = "alert alert-error"
+        '    Return View(myapplication)
+        'End Function
 
         '
         ' POST: /MyApplication/Delete/5
@@ -155,5 +162,8 @@ Namespace PortalI
             End Try
         End Sub
 
+        Private Sub GetAppTypes(Optional selValue As Object = Nothing)
+            ViewBag.AppTypeId = New SelectList(_db.Query(Of ApplicationType), "AppTypeId", "AppType", selValue)
+        End Sub
     End Class
 End Namespace

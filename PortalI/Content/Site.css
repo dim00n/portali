@@ -127,9 +127,11 @@ header, #header {
     padding: 5px;
 }
 
+/*
 #header a {
     text-decoration: underline;
 }
+*/
 
 footer, #footer
 {
@@ -835,5 +837,21 @@ div.alert.alert-success
 div.display-label
 {
     font-weight: bold;
+}
+
+.text-my-warning
+{
+    color: #ED3329;
+    text-align: center;
+}
+    
+a.text-my-warning:hover, a.text-my-warning:focus
+{
+    color: #C51A10;
+}
+
+div.modal-body p
+{
+    margin-top:10px;
 }
 

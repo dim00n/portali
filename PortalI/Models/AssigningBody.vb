@@ -7,7 +7,7 @@ Public Class AssigningBody
     Private _AssigningBodyCode As String
     <Key()>
     <Required(ErrorMessage:="Country Code is required.")>
-    <StringLength(2, minimumLength:=2)>
+    <StringLength(2, minimumLength:=2, ErrorMessage:="Country Code must be 2 characters.")>
     <DisplayName("Country Code")>
     Public Property AssigningBodyCode() As String
         Get
@@ -19,6 +19,7 @@ Public Class AssigningBody
     End Property
 
     Private _AssigningBodyName As String
+    <Required(ErrorMessage:="Country Name is required.")>
     <StringLength(60, ErrorMessage:="Country Name must be between 0 and 60 characters.")>
     <DisplayName("Country Name")>
     Public Property AssigningBodyName() As String

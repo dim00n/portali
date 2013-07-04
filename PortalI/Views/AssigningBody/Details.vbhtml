@@ -7,33 +7,16 @@ End Code
 
 <h3>@ViewData("Title")</h3>
 
-<fieldset>
-    <legend>Country</legend>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(Function(model) model.AssigningBodyCode)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(Function(model) model.AssigningBodyCode)
-    </div>
+@Using Html.Bootstrap.Begin(New Form("Details", "Country").FormMethod(FormMethod.Post).Type(FormType.Horizontal))
+    @<fieldset>
+        <legend>Language</legend>
+        @Html.Bootstrap().ControlGroup().DisplayTextFor(Function(m) Model.AssigningBodyCode)
+        @Html.Bootstrap().ControlGroup().DisplayTextFor(Function(m) Model.AssigningBodyName)
+        @Html.Bootstrap().ControlGroup().DisplayTextFor(Function(m) Model.AssigningBodyAdjective)
+        <div>
+            @Html.Partial("Elements/_Edit_BackToList", ViewData)
+        </div>
+    </fieldset>
+End Using
 
-    <div class="display-label">
-        @Html.DisplayNameFor(Function(model) model.AssigningBodyName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(Function(model) model.AssigningBodyName)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(Function(model) model.AssigningBodyAdjective)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(Function(model) model.AssigningBodyAdjective)
-    </div>
-    <div>
-        @Html.Partial("Elements/_Edit_BackToList", ViewData)
-    </div>
-</fieldset>
-
-
- 

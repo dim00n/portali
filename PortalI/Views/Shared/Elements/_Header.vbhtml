@@ -6,7 +6,9 @@
             </a>
 *@
                 <p class="site-title muted">
-                    @ConfigurationManager.AppSettings("App.Name")
+                    <a href="@Url.Action("Index", "MyApplication")">
+                        @ConfigurationManager.AppSettings("App.Name")
+                    </a>
                 </p>
             </div>
             <section id="login">

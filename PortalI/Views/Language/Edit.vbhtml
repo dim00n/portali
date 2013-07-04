@@ -6,40 +6,18 @@ End Code
 
 <h3>@ViewData("Title")</h3>
 
-@Using Html.BeginForm()
+@Using Html.Bootstrap.Begin(New Form("Edit", "Language").FormMethod(FormMethod.Post).Type(FormType.Horizontal))
     @Html.ValidationSummary(True)
     @Html.AntiForgeryToken()
 
     @<fieldset>
         <legend>Language</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(Function(model) model.LCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(Function(model) model.LCode)
-            @Html.ValidationMessageFor(Function(model) model.LCode)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(Function(model) model.LNameEnglish)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(Function(model) model.LNameEnglish)
-            @Html.ValidationMessageFor(Function(model) model.LNameEnglish)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(Function(model) model.LNameOriginal)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(Function(model) model.LNameOriginal)
-            @Html.ValidationMessageFor(Function(model) model.LNameOriginal)
-        </div>
-
-        <p>
+        @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.LCode)
+        @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.LNameEnglish)
+        @Html.Bootstrap().ControlGroup().TextBoxFor(Function(model) model.LNameOriginal)
+        <div>
             @Html.Partial("Elements/_Save_BackToList", ViewData)
-        </p>
+        </div>
     </fieldset>
 End Using
 

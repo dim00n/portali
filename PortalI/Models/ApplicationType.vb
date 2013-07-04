@@ -25,6 +25,7 @@ Public Class ApplicationType
 
     Private _AppType As String
     <Required()>
+    <Display(Name:="Type", Prompt:="Application Type")>
     Public Property AppType() As String
         Get
             Return _AppType

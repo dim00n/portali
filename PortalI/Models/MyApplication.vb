@@ -5,6 +5,7 @@ Imports System.Web.Mvc
 'TODO: Rename 'MyApplication' class.
 
 Public Class MyApplication
+    'Implements IValidatableObject
 
     Private _MyApplicationID As Integer
     <ScaffoldColumn(False)>
@@ -60,6 +61,15 @@ Public Class MyApplication
     Public Overridable Property AppType As ApplicationType
 
 
+    'Public Function Validate(vc As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
+    '    Dim result = New List(Of ValidationResult)
+    '    Dim db As IPortalIDb = New PortalIDb
+    '    Dim obj As MyApplication = CType(vc.ObjectInstance, MyApplication)
+    '    If (db.Query(Of MyApplication).Where(Function(x) x.Name = obj.Name).Count > 0) Then
+    '        result.Add(New ValidationResult("Application Name must be unique!", {"Name"}))
+    '    End If
 
+    '    Return result
+    'End Function
 
 End Class

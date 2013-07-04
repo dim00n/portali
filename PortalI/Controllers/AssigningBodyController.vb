@@ -22,9 +22,10 @@ Namespace PortalI
 
             Dim model = _db.Query(Of AssigningBody) _
                             .Where(Function(x) x.AssigningBodyName.StartsWith(term)) _
+                            .OrderBy(Function(x) x.AssigningBodyName) _
                             .Take(10) _
                             .Select(Function(x) New With {
-                                        .label = x.AssigningBodyName
+                                .label = x.AssigningBodyName
                             }).ToList()
 
             Return Json(model, JsonRequestBehavior.AllowGet)
@@ -32,8 +33,11 @@ Namespace PortalI
 
         '
         ' GET: /AssigningBody/
-        <OutputCache(Duration:=60, VaryByHeader:="X-Requested-With", Location:=OutputCacheLocation.Server)>
-        Function Index(Optional searchTerm As String = Nothing, Optional page As Integer = 1) As ActionResult
+        <OutputCache(Duration:=3, VaryByHeader:="X-Requested-With", Location:=OutputCacheLocation.Server)>
+        Function Index(Optional searchTerm As String = Nothing,
+                       Optional page As Integer = 1) As ActionResult
+
+            ViewBag.SearchTerm = searchTerm
             Dim model = _db.Query(Of AssigningBody) _
                     .OrderBy(Function(x) x.AssigningBodyCode) _
                     .Where(Function(x) searchTerm Is Nothing OrElse x.AssigningBodyName.StartsWith(searchTerm)) _
@@ -69,10 +73,13 @@ Namespace PortalI
         <ValidateAntiForgeryToken()>
         <Authorize(Roles:="Admin")>
         Function Create(ByVal assigningbody As AssigningBody) As ActionResult
+            If (_db.Query(Of AssigningBody).Where(Function(x) x.AssigningBodyCode = assigningbody.AssigningBodyCode).Count > 0) Then
+                ModelState.AddModelError("AssigningBodyCode", "Country code must be unique!")
+            End If
             If ModelState.IsValid Then
                 _db.Add(assigningbody)
                 SaveChanges()
-                Return RedirectToAction("Index")
+                If ModelState.IsValid Then Return RedirectToAction("Index")
             End If
 
             Return View(assigningbody)
@@ -99,7 +106,7 @@ Namespace PortalI
             If ModelState.IsValid Then
                 _db.Update(assigningbody)
                 SaveChanges()
-                Return RedirectToAction("Index")
+                If ModelState.IsValid Then Return RedirectToAction("Index")
             End If
 
             Return View(assigningbody)
@@ -108,16 +115,16 @@ Namespace PortalI
         '
         ' GET: /AssigningBody/Delete/5
 
-        <Authorize(Roles:="Admin")>
-        Function Delete(Optional ByVal id As String = Nothing) As ActionResult
-            Dim assigningbody As AssigningBody = _db.Find(Of AssigningBody)(id)
-            If IsNothing(assigningbody) Then
-                Return HttpNotFound()
-            End If
-            TempData("Message") = "Do you really want to delete country: '" & assigningbody.AssigningBodyName & "'?"
-            TempData("Style") = "alert alert-error"
-            Return View(assigningbody)
-        End Function
+        '<Authorize(Roles:="Admin")>
+        'Function Delete(Optional ByVal id As String = Nothing) As ActionResult
+        '    Dim assigningbody As AssigningBody = _db.Find(Of AssigningBody)(id)
+        '    If IsNothing(assigningbody) Then
+        '        Return HttpNotFound()
+        '    End If
+        '    TempData("Message") = "Do you really want to delete country: '" & assigningbody.AssigningBodyName & "'?"
+        '    TempData("Style") = "alert alert-error"
+        '    Return View(assigningbody)
+        'End Function
 
         '
         ' POST: /AssigningBody/Delete/5

@@ -20,6 +20,7 @@ Namespace PortalI
 
             Dim model = _db.Query(Of Language) _
                             .Where(Function(x) x.LCode.StartsWith(term)) _
+                            .OrderBy(Function(x) x.LCode) _
                             .Take(10) _
                             .Select(Function(x) New With {
                                         .label = x.LCode
@@ -31,7 +32,11 @@ Namespace PortalI
         '
         ' GET: /Language/
 
-        Public Function Index(Optional searchTerm As String = Nothing, Optional page As Integer = 1) As ActionResult
+        <OutputCache(Duration:=3, VaryByHeader:="X-Requested-With", Location:=OutputCacheLocation.Server)>
+        Public Function Index(Optional searchTerm As String = Nothing,
+                              Optional page As Integer = 1) As ActionResult
+
+            ViewBag.SearchTerm = searchTerm
             Dim model = _db.Query(Of Language) _
                     .OrderBy(Function(x) x.LCode) _
                     .Where(Function(x) searchTerm Is Nothing OrElse x.LCode.StartsWith(searchTerm)) _
@@ -66,6 +71,9 @@ Namespace PortalI
         <Authorize(Roles:="Admin")>
         <ValidateAntiForgeryToken()>
         Public Function Create(ByVal language As Language) As ActionResult
+            If (_db.Query(Of Language).Where(Function(x) x.LCode = language.LCode).Count > 0) Then
+                ModelState.AddModelError("LCode", "Language Code must be unique!")
+            End If
             If ModelState.IsValid Then
                 _db.Add(language)
                 SaveChanges()
@@ -96,7 +104,7 @@ Namespace PortalI
             If ModelState.IsValid Then
                 _db.Update(language)
                 SaveChanges()
-                Return RedirectToAction("Index")
+                If ModelState.IsValid Then Return RedirectToAction("Index")
             End If
 
             Return View(language)
@@ -105,16 +113,16 @@ Namespace PortalI
         '
         ' GET: /Language/Delete/5
 
-        <Authorize(Roles:="Admin")>
-        Public Function Delete(Optional ByVal id As String = Nothing) As ActionResult
-            Dim language As Language = _db.Find(Of Language)(id)
-            If IsNothing(language) Then
-                Return HttpNotFound()
-            End If
-            TempData("Message") = "Do you really want to delete language: '" & language.LNameEnglish & "'?"
-            TempData("Style") = "alert alert-error"
-            Return View(language)
-        End Function
+        '<Authorize(Roles:="Admin")>
+        'Public Function Delete(Optional ByVal id As String = Nothing) As ActionResult
+        '    Dim language As Language = _db.Find(Of Language)(id)
+        '    If IsNothing(language) Then
+        '        Return HttpNotFound()
+        '    End If
+        '    TempData("Message") = "Do you really want to delete language: '" & language.LNameEnglish & "'?"
+        '    TempData("Style") = "alert alert-error"
+        '    Return View(language)
+        'End Function
 
         '
         ' POST: /Language/Delete/5
